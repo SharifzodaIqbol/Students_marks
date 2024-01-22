@@ -1,20 +1,59 @@
-﻿// future.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
-#include <iostream>
-
-int main()
-{
-    std::cout << "Hello World!\n";
+﻿#include<iostream>
+#include<string>
+#include<vector>
+#include<algorithm>
+using namespace std;
+struct Student {
+	string name;
+	int age = 0;
+	int course = 0;
+	int marks[100];
+	int marks_count = 0;
+};
+double get_mark(Student& s) {
+	double dl = 0;
+	for (int i = 0; i < s.marks_count; ++i) {
+		dl += s.marks[i];
+	}
+	dl /= s.marks_count;
+	return dl;
 }
-
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
-
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
+void fillStudent(Student& s) {
+	cout << "Введите имя: ";
+	getline(cin, s.name);
+	cout << "Введите возраст: ";
+	cin >> s.age;
+	cout << "Введите количество оценок: ";
+	cin >> s.marks_count;
+	for (int i = 0; i < s.marks_count; ++i) {
+		cout << "Введите оценок "<<i+1<<": ";
+		cin >> s.marks[i];
+	}
+}
+void printStudent(Student& s) {
+	cout << endl;
+	cout << "Имя: " << s.name<<endl;
+	cout << "возраст: " << s.age<<endl;
+	cout << "оценок " << s.marks_count<<endl;
+	cout << "Оценки: ";
+	for (int i = 0; i < s.marks_count; ++i) {
+		cout << s.marks[i]<<" ";
+	}
+	cout << endl;
+}
+int main() {
+	system("chcp 1251");
+	int s_counter = 1;
+	Student group[100];
+	for (int i = 0; i < s_counter; ++i) {
+		fillStudent(group[i]);
+	}
+	for (int i = 0; i < s_counter; ++i) {
+		printStudent(group[i]);
+	}
+	cout << "Итоговая оценка: ";
+	for (int i = 0; i < s_counter; ++i) {
+		cout << get_mark(group[i]);
+	}
+	return 0;
+}
