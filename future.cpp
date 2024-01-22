@@ -18,9 +18,16 @@ double get_mark(Student& s) {
 	dl /= s.marks_count;
 	return dl;
 }
+static vector<string> name_student;
 void fillStudent(Student& s) {
+	cout << endl;
 	cout << "Введите имя: ";
-	getline(cin, s.name);
+	do {
+		getline(cin, s.name);
+		if (s.name[0] != '\0'){
+			name_student.push_back(s.name);
+		}
+	} while (s.name[0] == '\0');
 	cout << "Введите возраст: ";
 	cin >> s.age;
 	cout << "Введите количество оценок: ";
@@ -29,6 +36,7 @@ void fillStudent(Student& s) {
 		cout << "Введите оценок "<<i+1<<": ";
 		cin >> s.marks[i];
 	}
+	cout << endl;
 }
 void printStudent(Student& s) {
 	cout << endl;
@@ -43,7 +51,7 @@ void printStudent(Student& s) {
 }
 int main() {
 	system("chcp 1251");
-	int s_counter = 1;
+	int s_counter = 2;
 	Student group[100];
 	for (int i = 0; i < s_counter; ++i) {
 		fillStudent(group[i]);
@@ -51,9 +59,10 @@ int main() {
 	for (int i = 0; i < s_counter; ++i) {
 		printStudent(group[i]);
 	}
-	cout << "Итоговая оценка: ";
+	cout << endl;
 	for (int i = 0; i < s_counter; ++i) {
-		cout << get_mark(group[i]);
+		cout << "Итоговая оценка у :\t"<<name_student[i]<<" ";
+		cout << get_mark(group[i]) << "\n";
 	}
 	return 0;
 }
